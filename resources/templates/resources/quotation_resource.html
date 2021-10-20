@@ -1,0 +1,9 @@
+{% extends "resource_page.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block resource %}
+
+    {{ page.quotation|richtext }}
+
+{% endblock %}

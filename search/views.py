@@ -3,7 +3,7 @@ from django.template.response import TemplateResponse
 
 from wagtail.core.models import Page
 from wagtail.search.models import Query
-
+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
 
 def search(request):
     search_query = request.GET.get('query', None)
