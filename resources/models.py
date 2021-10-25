@@ -9,6 +9,7 @@ from wagtail.search import index
 
 
 class CuratorIndexPage(Page):
+    subpage_types = ['resources.CuratorPage']
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -17,6 +18,7 @@ class CuratorIndexPage(Page):
 
 
 class CuratorPage(Page):
+    parent_page_types = ['resources.CuratorIndexPage']
     about_me = RichTextField(blank=True)
     email = models.EmailField(blank=True)
     image = models.ImageField(blank=True)
@@ -38,6 +40,13 @@ class CuratorPage(Page):
 
 
 class ResourceIndexPage(Page):
+    subpage_types = [
+        'resources.AudioResource',
+        'resources.ImageResource',
+        'resources.QuotationResource',
+        'resources.PoetryResource',
+        'resources.PrayerResource',
+    ]
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
@@ -54,6 +63,7 @@ class ResourceTag(TaggedItemBase):
 
 
 class ResourceTagIndexPage(Page):
+    subpage_types = []
     def get_context(self, request):
         # Filter by tag
         tag = request.GET.get('tag')
@@ -66,6 +76,8 @@ class ResourceTagIndexPage(Page):
 
 
 class ResourcePage(Page):
+    parent_page_types = ['resources.ResourceIndexPage']
+    subpage_types = []
     date = models.DateField("Updated Date")
     author = models.CharField(max_length=100)
     source = models.URLField()
