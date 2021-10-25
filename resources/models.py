@@ -106,6 +106,7 @@ class ResourcePage(Page):
     ])]
 
     meta_panel = MultiFieldPanel([
+        FieldPanel('description'),
         FieldPanel('date'),
         FieldPanel('tags'),
         FieldPanel('curator')
@@ -121,7 +122,7 @@ class PoetryResource(ResourcePage):
         index.SearchField('poem')
     ]
 
-    content_panels = ResourcePage.source_panels + [FieldPanel('description'), ResourcePage.meta_panel]
+    content_panels = ResourcePage.source_panels + [FieldPanel('poem'), ResourcePage.meta_panel]
 
 
 class AudioResource(ResourcePage):
