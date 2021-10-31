@@ -1,6 +1,7 @@
+from django.contrib.auth.models import User
 from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
-from modelcluster.fields import ParentalKey
+from modelcluster.fields import ForeignKey, ParentalKey
 from taggit.models import TaggedItemBase
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.core.models import Page
@@ -9,33 +10,11 @@ from wagtail.search import index
 
 
 class CuratorIndexPage(Page):
-    subpage_types = ['resources.CuratorPage']
+    subpage_types = []
     intro = RichTextField(blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
-    ]
-
-
-class CuratorPage(Page):
-    parent_page_types = ['resources.CuratorIndexPage']
-    about_me = RichTextField(blank=True)
-    email = models.EmailField(blank=True)
-    image = models.ImageField(blank=True)
-    website = models.URLField(blank=True)
-
-    # TODO connect to resources curated by this curator
-    # children = models.ManyToOneRel()
-
-    search_fields = Page.search_fields + [
-        index.SearchField('title')
-    ]
-
-    content_panels = Page.content_panels + [
-        FieldPanel('email'),
-        FieldPanel('image'),
-        FieldPanel('website'),
-        FieldPanel('about_me', classname="full")
     ]
 
 
@@ -64,6 +43,7 @@ class ResourceTag(TaggedItemBase):
 
 class ResourceTagIndexPage(Page):
     subpage_types = []
+
     def get_context(self, request):
         # Filter by tag
         tag = request.GET.get('tag')
@@ -82,8 +62,8 @@ class ResourcePage(Page):
     author = models.CharField(max_length=100)
     source = models.URLField()
     description = RichTextField()
-    curator = ParentalKey(
-        CuratorPage,
+    curator = ForeignKey(
+        User,
         blank=True,
         null=True,
         on_delete=models.SET_NULL
