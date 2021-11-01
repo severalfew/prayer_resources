@@ -1,6 +1,13 @@
+h1 {
+  font-family: 'Vollkorn Bold', serif;
+}
 
-.h1 {
-  font-family: 'Vollkorn', serif;
+h2 {
+  font-family: 'Vollkorn Bold', serif;
+}
+
+p {
+  font-family: 'Vollkorn Regular', serif;
 }
 
 .grid-item {

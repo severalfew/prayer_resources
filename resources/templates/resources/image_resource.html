@@ -1,0 +1,11 @@
+{% extends "resource_page.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block resource %}
+
+    {% if page.image %}
+        <img src={{ page.image.url }}/>
+    {% endif %}
+
+{% endblock %}
