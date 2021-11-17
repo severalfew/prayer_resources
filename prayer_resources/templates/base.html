@@ -17,9 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/prayer_resources.css' %}">
-        <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-        <link href="http://fonts.cdnfonts.com/css/vollkorn" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -29,10 +27,73 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
+        <nav class="navbar navbar-expand-md navbar-light bg-white absolute-top">
+      <div class="container">
+
+        <button class="navbar-toggler order-2 order-md-1" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbar-left navbar-right" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse order-3 order-md-2" id="navbar-left">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% slugurl 'resources' %}">Resources</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="page-about.html">Tags</a>
+            </li>
+          </ul>
+        </div>
+
+        <a class="navbar-brand mx-auto order-1 order-md-3" href="index.html">Prayer Resources</a>
+
+        <div class="collapse navbar-collapse order-4 order-md-4" id="navbar-right">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link">Search for Resources:</a>
+            </li>
+          </ul>
+          <form class="form-inline" role="search">
+            <input class="search js-search form-control form-control-rounded me-sm-2" type="text" title="Enter search query here.." placeholder="Search.." aria-label="Search">
+          </form>
+        </div>
+      </div>
+    </nav>
+
         {% block content %}{% endblock %}
 
+        <footer class="site-footer bg-dark">
+    <div class="container">
+
+      <ul class="nav justify-content-center">
+        <li class="nav-item">
+          <a class="nav-link" href="{% slugurl 'resources' %}">Resources</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% slugurl 'tags' %}">Tags</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% slugurl 'about' %}">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% slugurl 'curators' %}">Curators</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% slugurl 'contact' %}">Contact</a>
+        </li>
+      </ul>
+      <div class="copy">
+          <a href="https://www.christusministries.org/" style="color:inherit;text-decoration:none">Christus Ministries</a>
+          <br />
+        All rights reserved
+      </div>
+    </div>
+  </footer>
         {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/prayer_resources.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
 
         {% block extra_js %}
             {# Override this in templates to add extra javascript #}

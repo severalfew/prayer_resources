@@ -8,14 +8,40 @@
     <h1>{{ page.title }}</h1>
 
     <div class="intro">{{ page.intro|richtext }}</div>
-    <div class="grid">
+
+    <main class="main pt-4">
+
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-4">
+
         {% for post in page.get_children %}
-            <div class="grid-item">
-                <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-                {{ post.specific.intro }}
-                {{ post.specific.body|richtext }}
+          <article class="card mb-4">
+            <header class="card-header">
+              <div class="card-meta">
+                <a href="{% pageurl post %}"><time class="timeago" datetime="2021-09-15 20:00">15 october 2021</time></a> in <a href="page-category.html">Lifestyle</a>
+              </div>
+              <a href="post-image.html">
+                <h4 class="card-title">{{ post.title }}</h4>
+              </a>
+            </header>
+            <a href="post-image.html">
+              <img class="card-img" src="img/articles/20.jpg" alt="" />
+            </a>
+            <div class="card-body">
+              <p class="card-text">{{ post.specific.intro }}
+              </p>
             </div>
+          </article><!-- /.card -->
+
         {% endfor %}
+        </div>
+
+        </div>
+      </div>
     </div>
+
+  </main>
 
 {% endblock %}
