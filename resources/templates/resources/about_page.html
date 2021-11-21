@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-resourceindexpage{% endblock %}
+
+{% block content %}
+
+  <main class="main pt-4">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+
+          <article class="card mb-4">
+            <header class="card-header text-center">
+              <h1 class="card-title">{{ page.title }}</h1>
+            </header>
+            <div class="card-body">
+            {% for block in page.content %}
+                {% if block.block_type == 'heading' %}
+                    <h1>{{ block.value }}</h1>
+                {% else %}
+                    <section class="block-{{ block.block_type }}">
+                        {% include_block block %}
+                    </section>
+                {% endif %}
+            {% endfor %}
+            </div>
+          </article><!-- /.card -->
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+    {% for post in page.get_children %}
+        <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+        {{ post.specific.about_me|richtext }}
+    {% endfor %}
+
+{% endblock %}

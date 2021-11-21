@@ -3,10 +3,25 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ForeignKey, ParentalKey
 from taggit.models import TaggedItemBase
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, StreamFieldPanel
+from wagtail.core import blocks
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
+
+
+class AboutPage(Page):
+    subpage_types = []
+    content = StreamField([
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock())
+    ])
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('content', classname="full")
+    ]
 
 
 class CuratorIndexPage(Page):
